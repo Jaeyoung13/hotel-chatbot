@@ -1,0 +1,21 @@
+name: Deploy Workflow  # GitHub Actions 워크플로우 이름
+
+on:
+  push:
+    branches:
+      - main  # main 브랜치에 코드가 푸시될 때 실행됨
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3  # 저장소의 코드를 가져오기
+
+      - name: Set up environment
+        run: |
+          echo "OPENAI_API_KEY=${{ secrets.OPENAI_API_KEY }}" >> $GITHUB_ENV
+          echo "LANGSMITH_API_KEY=${{ secrets.LANGSMITH_API_KEY }}" >> $GITHUB_ENV
+          
+      - name: Verify Environment
+        run: |
+          echo "✅ Environment variables set!"
